@@ -14,7 +14,6 @@ public class User {
     private String userId;
     private String name;
     private Date creationDate = new Date();
-    private  String dummy;
     private Map<String, String> userSettings = new HashMap<>();
 
     public String getUserId() {
