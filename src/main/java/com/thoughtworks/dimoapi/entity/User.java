@@ -13,6 +13,7 @@ public class User {
     @Id
     private String userId;
     private String name;
+    private String email;
     private Date creationDate = new Date();
     private Map<String, String> userSettings = new HashMap<>();
 
@@ -42,6 +43,14 @@ public class User {
 
     public Map<String, String> getUserSettings() {
         return userSettings;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setUserSettings(Map<String, String> userSettings) {
