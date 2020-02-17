@@ -1,6 +1,7 @@
 package com.thoughtworks.dimoapi.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -13,10 +14,11 @@ public class User {
     @Id
     private String userId;
     private String name;
+    @Indexed(unique =  true)
     private String email;
-    private Date creationDate = new Date();
-    private Map<String, String> userSettings = new HashMap<>();
-
+    private  String password;
+    //private Date creationDate = new Date();
+    private Map<String, String> preferences = new HashMap<>();
     public String getUserId() {
         return userId;
     }
@@ -32,18 +34,22 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Date getCreationDate() {
-        return creationDate;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Map<String, String> getUserSettings() {
-        return userSettings;
+    public Map<String, String> getPreferences() {
+        return preferences;
     }
+
+    public void setPreferences(Map<String, String> preferences) {
+        this.preferences = preferences;
+    }
+
 
     public String getEmail() {
         return email;
@@ -51,9 +57,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setUserSettings(Map<String, String> userSettings) {
-        this.userSettings = userSettings;
     }
 }
