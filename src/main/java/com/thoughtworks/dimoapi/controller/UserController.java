@@ -7,6 +7,7 @@ import com.thoughtworks.dimoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,6 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
 
     @GetMapping(value="/hello")
     public  String sayHello(){
@@ -31,7 +31,7 @@ public class UserController {
             return new ResponseEntity<Response>(new Response("200", "user created successfully"), HttpStatus.OK);
         } catch (Exception e){
             e.printStackTrace();
-            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("Exception occurred during user creation");
         }
 
     }
@@ -41,14 +41,14 @@ public class UserController {
 
         try {
             User user =  userService.findByEmail(credential.getEmail());
-            if(user.getPassword() == credential.getPassword()){
+            if(user.getPassword().equals(credential.getPassword())){
                 return new ResponseEntity<Response>(new Response("200", "Login successfully"), HttpStatus.OK);
             } else {
                 return new ResponseEntity<Response>(new Response("200", "Invalid user"), HttpStatus.OK);
             }
         } catch (Exception e){
             e.printStackTrace();
-            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("Exception occurred during user creation");
         }
 
 

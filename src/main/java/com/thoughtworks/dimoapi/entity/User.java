@@ -14,11 +14,11 @@ public class User {
     @Id
     private String userId;
     private String name;
-    @Indexed(unique =  true)
+    @Indexed(unique=true)
     private String email;
     private  String password;
     //private Date creationDate = new Date();
-    private Map<String, String> preferences = new HashMap<>();
+//    private Map<String, String> preferences = new HashMap<>();
     public String getUserId() {
         return userId;
     }
@@ -42,13 +42,13 @@ public class User {
         this.password = password;
     }
 
-    public Map<String, String> getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(Map<String, String> preferences) {
-        this.preferences = preferences;
-    }
+//    public Map<String, String> getPreferences() {
+//        return preferences;
+//    }
+//
+//    public void setPreferences(Map<String, String> preferences) {
+//        this.preferences = preferences;
+//    }
 
 
     public String getEmail() {
