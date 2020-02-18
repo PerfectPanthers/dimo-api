@@ -16,9 +16,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value="/hello")
+    @GetMapping(value="/test")
     public  String sayHello(){
-        return  "hello";
+        return  "Hello World";
     }
 
     @PostMapping(value = "/signUp")
