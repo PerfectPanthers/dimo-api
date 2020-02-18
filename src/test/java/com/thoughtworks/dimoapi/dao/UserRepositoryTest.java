@@ -1,6 +1,7 @@
 package com.thoughtworks.dimoapi.dao;
 
 import com.thoughtworks.dimoapi.entity.User;
+import com.thoughtworks.dimoapi.repository.UserRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

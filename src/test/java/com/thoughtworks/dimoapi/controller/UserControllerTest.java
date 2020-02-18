@@ -54,35 +54,35 @@ public class UserControllerTest {
         mockMVC = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
-    @Test
-    public void testGetAllUsers() throws Exception{
-        when(userService.getAllUsers()).thenReturn(new ArrayList<User>(){
-            {
-               add(new MockUserEntity("Mukesh", "8789789"));
-               add(new MockUserEntity("Arun", "8798784434"));
-            }
-        });
+//    @Test
+//    public void testGetAllUsers() throws Exception{
+//        when(userService.getAllUsers()).thenReturn(new ArrayList<User>(){
+//            {
+//               add(new MockUserEntity("Mukesh", "8789789"));
+//               add(new MockUserEntity("Arun", "8798784434"));
+//            }
+//        });
+//
+//      this.mockMVC.perform(get("/api/users")).andDo(print()).andExpect(status().isOk())
+//              .andExpect(jsonPath("$[0].name").value("Mukesh"))
+//              .andExpect(jsonPath("$[1].name").value("Arun"));
+//
+//    }
 
-      this.mockMVC.perform(get("/api/users")).andDo(print()).andExpect(status().isOk())
-              .andExpect(jsonPath("$[0].name").value("Mukesh"))
-              .andExpect(jsonPath("$[1].name").value("Arun"));
-
-    }
-
-    @Test
-    public void testSaveUser() throws Exception{
-        User user = new MockUserEntity("Mukesh","565675");
-        String json = mapper.writeValueAsString(user);
-
-        when(userService.createUser(any(User.class))).thenReturn(user);
-
-        this.mockMVC.perform(
-                    post("/api/user")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json)
-                        .characterEncoding("utf-8"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Mukesh"));
-
-    }
+//    @Test
+//    public void testSaveUser() throws Exception{
+//        User user = new MockUserEntity("Mukesh","565675");
+//        String json = mapper.writeValueAsString(user);
+//
+//        when(userService.createUser(any(User.class))).thenReturn(user);
+//
+//        this.mockMVC.perform(
+//                    post("/api/user")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(json)
+//                        .characterEncoding("utf-8"))
+//                .andDo(print()).andExpect(status().isOk())
+//                .andExpect(jsonPath("$.name").value("Mukesh"));
+//
+//    }
 }

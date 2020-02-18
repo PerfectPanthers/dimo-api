@@ -21,6 +21,11 @@ public class User {
     @Indexed(unique=true)
     private String email;
     private  String password;
+
+    public User(String id, String name){
+        this.userId = id;
+        this.name = name;
+    }
     //private Date creationDate = new Date();
 //    private Map<String, String> preferences = new HashMap<>();
     

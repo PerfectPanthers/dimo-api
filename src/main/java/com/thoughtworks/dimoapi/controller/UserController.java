@@ -1,16 +1,13 @@
 package com.thoughtworks.dimoapi.controller;
 
 import com.thoughtworks.dimoapi.entity.User;
-import com.thoughtworks.dimoapi.model.Login;
+import com.thoughtworks.dimoapi.model.LoginRequest;
 import com.thoughtworks.dimoapi.model.Response;
 import com.thoughtworks.dimoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -43,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping(value = "login")
-    public  ResponseEntity doLogin(@RequestBody  Login credential){
+    public  ResponseEntity doLogin(@RequestBody LoginRequest credential){
 
         try {
             User user =  userService.findByEmail(credential.getEmail());
