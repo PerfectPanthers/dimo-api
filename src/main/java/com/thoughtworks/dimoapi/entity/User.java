@@ -5,10 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 @Document(collection = "users")
 @NoArgsConstructor
 @Data
@@ -37,4 +33,5 @@ public class User {
 
     private Date creationDate = new Date();
     private Map<String, String> userSettings = new HashMap<>();
+
 }
