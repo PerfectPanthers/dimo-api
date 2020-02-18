@@ -1,6 +1,6 @@
 package com.thoughtworks.dimoapi.model;
 
-public class Login {
+public class LoginRequest {
 
     private  String email;
     private  String password;

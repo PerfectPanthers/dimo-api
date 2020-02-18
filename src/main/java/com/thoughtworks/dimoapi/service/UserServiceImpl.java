@@ -1,5 +1,6 @@
 package com.thoughtworks.dimoapi.service;
 
+import com.thoughtworks.dimoapi.repository.UserRepository;
 import com.thoughtworks.dimoapi.entity.User;
 import com.thoughtworks.dimoapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
