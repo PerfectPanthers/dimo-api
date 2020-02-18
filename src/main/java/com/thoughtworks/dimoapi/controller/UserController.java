@@ -27,8 +27,14 @@ public class UserController {
     @PostMapping(value = "/signUp")
     public ResponseEntity createUser(@RequestBody User user) {
         try {
-            userService.save(user);
-            return new ResponseEntity<Response>(new Response("200", "user created successfully"), HttpStatus.OK);
+            if(userService.findByEmail(user.getEmail())== null)
+            {
+                userService.save(user);
+                return new ResponseEntity<Response>(new Response(true, "user created successfully"), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<Response>(new Response(false, "user already registered"), HttpStatus.OK);
+            }
+
         } catch (Exception e){
             e.printStackTrace();
             return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("Exception occurred during user creation");
@@ -41,11 +47,17 @@ public class UserController {
 
         try {
             User user =  userService.findByEmail(credential.getEmail());
-            if(user.getPassword().equals(credential.getPassword())){
-                return new ResponseEntity<Response>(new Response("200", "Login successfully"), HttpStatus.OK);
+            if(user != null)
+            {
+                if(user.getPassword().equals(credential.getPassword())){
+                    return new ResponseEntity<Response>(new Response(true, "Login successfully"), HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<Response>(new Response(false, "Invalid user"), HttpStatus.OK);
+                }
             } else {
-                return new ResponseEntity<Response>(new Response("200", "Invalid user"), HttpStatus.OK);
+                return new ResponseEntity<Response>(new Response(false, "Email id is not registered"), HttpStatus.OK);
             }
+
         } catch (Exception e){
             e.printStackTrace();
             return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("Exception occurred during user creation");

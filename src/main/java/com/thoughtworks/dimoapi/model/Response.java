@@ -1,19 +1,19 @@
 package com.thoughtworks.dimoapi.model;
 
 public class Response {
-    private  String statusCode;
+    private  boolean statusCode;
     private  String message;
 
-    public Response(String statusCode, String message){
+    public Response(boolean statusCode, String message){
           this.statusCode = statusCode;
           this.message = message;
       }
 
-    public String getStatusCode() {
+    public boolean getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(String statusCode) {
+    public void setStatusCode(boolean statusCode) {
         this.statusCode = statusCode;
     }
 
