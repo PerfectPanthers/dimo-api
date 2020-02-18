@@ -112,7 +112,7 @@ public class UserControllerTest {
 
         this.mockMVC.perform(post("/api/login").contentType(MediaType.APPLICATION_JSON)
                 .content(json).characterEncoding("utf-8"))
-                .andExpect(status().isOk())
+                .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.statusCode").value(false))
                 .andExpect(jsonPath("$.message").value("Invalid user"));
     }

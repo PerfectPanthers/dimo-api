@@ -53,10 +53,10 @@ public class UserController {
                 if (user.getPassword().equals(credential.getPassword())) {
                     return new ResponseEntity<>(new Response(true, "Login successfully"), HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.OK);
+                    return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.UNAUTHORIZED);
                 }
             } else {
-                return new ResponseEntity<>(new Response(false, "Email id is not registered"), HttpStatus.OK);
+                return new ResponseEntity<>(new Response(false, "Email id is not registered"), HttpStatus.BAD_REQUEST);
             }
 
         } catch (Exception e) {
