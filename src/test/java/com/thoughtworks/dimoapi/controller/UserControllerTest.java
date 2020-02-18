@@ -6,18 +6,12 @@ import com.thoughtworks.dimoapi.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
@@ -32,8 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class userEntityTest extends User{
-    userEntityTest(String name, String id){
+class MockUserEntity extends User{
+    MockUserEntity(String name, String id){
         this.setName(name);
         this.setUserId(id);
     }
@@ -64,8 +58,8 @@ public class UserControllerTest {
     public void testGetAllUsers() throws Exception{
         when(userService.getAllUsers()).thenReturn(new ArrayList<User>(){
             {
-               add(new userEntityTest("Mukesh", "8789789"));
-               add(new userEntityTest("Arun", "8798784434"));
+               add(new MockUserEntity("Mukesh", "8789789"));
+               add(new MockUserEntity("Arun", "8798784434"));
             }
         });
 
@@ -77,7 +71,7 @@ public class UserControllerTest {
 
     @Test
     public void testSaveUser() throws Exception{
-        User user = new userEntityTest("Mukesh","565675");
+        User user = new MockUserEntity("Mukesh","565675");
         String json = mapper.writeValueAsString(user);
 
         when(userService.createUser(any(User.class))).thenReturn(user);
