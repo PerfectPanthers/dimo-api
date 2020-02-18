@@ -5,8 +5,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Document(collection = "users")
@@ -21,6 +23,8 @@ public class User {
     @Indexed(unique=true)
     private String email;
     private  String password;
+
+    private List preferences;
 
     public User(String id, String name){
         this.userId = id;

@@ -3,11 +3,16 @@ package com.thoughtworks.dimoapi.controller;
 import com.thoughtworks.dimoapi.entity.User;
 import com.thoughtworks.dimoapi.model.LoginRequest;
 import com.thoughtworks.dimoapi.model.Response;
+import com.thoughtworks.dimoapi.service.DashboardService;
 import com.thoughtworks.dimoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -15,6 +20,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    DashboardService dashboardService;
 
     @GetMapping(value="/hello")
     public  String sayHello(){
@@ -39,7 +47,7 @@ public class UserController {
 
     }
 
-    @PostMapping(value = "login")
+    @PostMapping(value = "/login")
     public  ResponseEntity doLogin(@RequestBody LoginRequest credential){
 
         try {
@@ -60,6 +68,10 @@ public class UserController {
             return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("Exception occurred during user creation");
         }
 
+    }
 
+    @GetMapping(path = "/movie-types", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, List> allMovieTypes() {
+        return dashboardService.getMovieTypes();
     }
 }
