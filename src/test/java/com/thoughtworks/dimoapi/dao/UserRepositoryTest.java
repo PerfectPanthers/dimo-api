@@ -1,6 +1,7 @@
 package com.thoughtworks.dimoapi.dao;
 
 import com.thoughtworks.dimoapi.entity.User;
+import com.thoughtworks.dimoapi.repository.UserRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,7 +27,7 @@ public class UserRepositoryTest {
     User jerry = new User("78787875452332hghjghgh87787878", "Jerry");
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         userRepository.save(pluto);
         userRepository.save(tom);
         userRepository.save(jerry);
@@ -42,14 +43,13 @@ public class UserRepositoryTest {
         assertEquals(popeye.getName(), userRepository.save(popeye).getName());
     }
 
-
     @Test
     public void testBulkWriteUser() {
         assertEquals(popeye.getName(), userRepository.save(popeye).getName());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         userRepository.deleteAll();
     }
 }

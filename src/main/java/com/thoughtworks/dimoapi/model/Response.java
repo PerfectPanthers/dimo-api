@@ -1,27 +1,11 @@
 package com.thoughtworks.dimoapi.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class Response {
-    private  boolean statusCode;
-    private  String message;
-
-    public Response(boolean statusCode, String message){
-          this.statusCode = statusCode;
-          this.message = message;
-      }
-
-    public boolean getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(boolean statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    private boolean statusCode;
+    private String message;
 }
