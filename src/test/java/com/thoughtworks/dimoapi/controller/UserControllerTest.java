@@ -67,7 +67,7 @@ public class UserControllerTest {
         when(userService.findByEmail("mailnotsaved@gmail.com")).thenReturn(null);
         LoginRequest loginRequest = new LoginRequest("mailnotsaved@gmail.com", "def");
         ResponseEntity<Response> response = userController.login(loginRequest);
-        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertEquals(response.getStatusCode(), HttpStatus.UNAUTHORIZED);
     }
 
 
