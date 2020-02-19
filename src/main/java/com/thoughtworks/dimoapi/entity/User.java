@@ -22,8 +22,9 @@ public class User {
     private String password;
     private List preferences;
 
-    public User(String userId, String name) {
+    public User(String userId, String name, String email) {
         this.userId = userId;
         this.name = name;
+        this.email = email;
     }
 }

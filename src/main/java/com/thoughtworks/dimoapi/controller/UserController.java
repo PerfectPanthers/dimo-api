@@ -30,42 +30,29 @@ public class UserController {
         return "hello";
     }
 
-    @PostMapping(value = "/signup")
-    public ResponseEntity createUser(@RequestBody User user) {
-        try {
-            if (userService.findByEmail(user.getEmail()) == null) {
-                userService.save(user);
-                return new ResponseEntity<>(new Response(true, "user created successfully"), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(new Response(false, "user already registered"), HttpStatus.OK);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Exception occurred during user creation");
+    @PostMapping(path = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response> createUser(@RequestBody User user) {
+        if (userService.findByEmail(user.getEmail()) == null) {
+            User dbUser = userService.save(user);
+            return new ResponseEntity<>(new Response(dbUser.getUserId(), dbUser.getName(), dbUser.getEmail()), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity doLogin(@RequestBody LoginRequest credential) {
+    public ResponseEntity<Response> login(@RequestBody LoginRequest credential) {
 
-        try {
-            User user = userService.findByEmail(credential.getEmail());
-            if (user != null) {
-                if (PasswordUtils.decrypt(user.getPassword()).equals(credential.getPassword())) {
-                    return new ResponseEntity<>(new Response(true, "Login successfully"), HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.UNAUTHORIZED);
-                }
+        User user = userService.findByEmail(credential.getEmail());
+        if (user != null) {
+            if (PasswordUtils.decrypt(user.getPassword()).equals(credential.getPassword())) {
+                return new ResponseEntity<>(new Response(user.getUserId(), user.getName(), user.getEmail()), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(new Response(false, "Email id is not registered"), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Exception occurred during user login");
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @GetMapping(path = "/preferences", produces = MediaType.APPLICATION_JSON_VALUE)
