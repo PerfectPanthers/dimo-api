@@ -11,6 +11,8 @@ import java.util.Base64;
 
 public class PasswordUtils {
 
+    private static String SECRET_KEY = "secretkey";
+    private static String SALT = "salt";
 
     public static String encrypt(String strToEncrypt) {
         try {
@@ -18,7 +20,7 @@ public class PasswordUtils {
             IvParameterSpec ivspec = new IvParameterSpec(iv);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(PropertyUtils.getProperty("secret-key").toCharArray(), PropertyUtils.getProperty("salt").getBytes(), 65536, 256);
+            KeySpec spec = new PBEKeySpec(PropertyUtils.getProperty(SECRET_KEY).toCharArray(), PropertyUtils.getProperty(SALT).getBytes(), 65536, 256);
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
@@ -37,7 +39,7 @@ public class PasswordUtils {
             IvParameterSpec ivspec = new IvParameterSpec(iv);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(PropertyUtils.getProperty("secret-key").toCharArray(), PropertyUtils.getProperty("salt").getBytes(), 65536, 256);
+            KeySpec spec = new PBEKeySpec(PropertyUtils.getProperty(SECRET_KEY).toCharArray(), PropertyUtils.getProperty(SALT).getBytes(), 65536, 256);
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
