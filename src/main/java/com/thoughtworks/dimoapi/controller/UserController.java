@@ -9,11 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,12 +24,12 @@ public class UserController {
     @Autowired
     DashboardService dashboardService;
 
-    @GetMapping(value="/hello")
-    public  String sayHello(){
-        return  "hello";
+    @GetMapping(value = "/hello")
+    public String sayHello() {
+        return "hello";
     }
 
-    @PostMapping(value = "/signUp")
+    @PostMapping(value = "/signup")
     public ResponseEntity createUser(@RequestBody User user) {
         try {
             if (userService.findByEmail(user.getEmail()) == null) {
@@ -50,17 +46,18 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public  ResponseEntity doLogin(@RequestBody LoginRequest credential){
+    public ResponseEntity doLogin(@RequestBody LoginRequest credential) {
+
         try {
             User user = userService.findByEmail(credential.getEmail());
             if (user != null) {
                 if (user.getPassword().equals(credential.getPassword())) {
                     return new ResponseEntity<>(new Response(true, "Login successfully"), HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.OK);
+                    return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.UNAUTHORIZED);
                 }
             } else {
-                return new ResponseEntity<>(new Response(false, "Email id is not registered"), HttpStatus.OK);
+                return new ResponseEntity<>(new Response(false, "Email id is not registered"), HttpStatus.BAD_REQUEST);
             }
 
         } catch (Exception e) {
@@ -70,8 +67,8 @@ public class UserController {
 
     }
 
-    @GetMapping(path = "/movie-types", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, List> allMovieTypes() {
+    @GetMapping(path = "/preferences", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, List> allPreferences() {
         return dashboardService.getMovieTypes();
     }
 }

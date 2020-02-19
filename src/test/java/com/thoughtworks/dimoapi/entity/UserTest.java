@@ -11,8 +11,6 @@ public class UserTest {
         User user = new User();
         assertNull(user.getUserId());
         assertNull(user.getName());
-        assertNotNull(user.getCreationDate());
-        assertNotNull(user.getUserSettings());
     }
 
     @Test
@@ -20,7 +18,5 @@ public class UserTest {
         User user = new User("1234", "Mugil");
         assertEquals(user.getUserId(), "1234");
         assertEquals(user.getName(), "Mugil");
-        assertNotNull(user.getCreationDate());
-        assertNotNull(user.getUserSettings());
     }
 }
