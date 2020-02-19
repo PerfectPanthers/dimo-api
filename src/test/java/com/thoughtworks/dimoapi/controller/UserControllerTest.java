@@ -1,10 +1,10 @@
 package com.thoughtworks.dimoapi.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.dimoapi.entity.User;
 import com.thoughtworks.dimoapi.model.LoginRequest;
 import com.thoughtworks.dimoapi.service.UserService;
+import com.thoughtworks.dimoapi.utils.PasswordUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,16 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.contains;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-import java.util.ArrayList;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -88,10 +79,10 @@ public class UserControllerTest {
     @Test
     public void testDoLoginSuccess() throws Exception {
         User murugesan = new User("1", "Murugesan");
-        murugesan.setEmail("abc@gmail.com");
-        murugesan.setPassword("abc");
-        when(userService.findByEmail("abc@gmail.com")).thenReturn(murugesan);
-        LoginRequest loginRequest = new LoginRequest("abc@gmail.com", "abc");
+        murugesan.setEmail("abc123@gmail.com");
+        murugesan.setPassword(PasswordUtils.encrypt("abc"));
+        when(userService.findByEmail("abc123@gmail.com")).thenReturn(murugesan);
+        LoginRequest loginRequest = new LoginRequest("abc123@gmail.com", "abc");
         String json = mapper.writeValueAsString(loginRequest);
 
         this.mockMVC.perform(post("/api/login").contentType(MediaType.APPLICATION_JSON)
@@ -105,7 +96,7 @@ public class UserControllerTest {
     public void testDoLoginInvalidUser() throws Exception {
         User murugesan = new User("1", "Murugesan");
         murugesan.setEmail("abc@gmail.com");
-        murugesan.setPassword("abc");
+        murugesan.setPassword(PasswordUtils.encrypt("abc"));
         when(userService.findByEmail("abc@gmail.com")).thenReturn(murugesan);
         LoginRequest loginRequest = new LoginRequest("abc@gmail.com", "def");
         String json = mapper.writeValueAsString(loginRequest);
@@ -120,7 +111,7 @@ public class UserControllerTest {
     @Test
     public void testDoLoginUnregisteredUser() throws Exception {
 
-        when(userService.findByEmail("abc@gmail.com")).thenThrow(new RuntimeException("Could not connect to persistant store"));
+        when(userService.findByEmail("abc@gmail.com")).thenThrow(new RuntimeException("Could not connect to persistent store"));
         LoginRequest loginRequest = new LoginRequest("abc@gmail.com", "def");
         String json = mapper.writeValueAsString(loginRequest);
 

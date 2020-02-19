@@ -5,6 +5,7 @@ import com.thoughtworks.dimoapi.model.LoginRequest;
 import com.thoughtworks.dimoapi.model.Response;
 import com.thoughtworks.dimoapi.service.DashboardService;
 import com.thoughtworks.dimoapi.service.UserService;
+import com.thoughtworks.dimoapi.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,7 +52,7 @@ public class UserController {
         try {
             User user = userService.findByEmail(credential.getEmail());
             if (user != null) {
-                if (user.getPassword().equals(credential.getPassword())) {
+                if (PasswordUtils.decrypt(user.getPassword()).equals(credential.getPassword())) {
                     return new ResponseEntity<>(new Response(true, "Login successfully"), HttpStatus.OK);
                 } else {
                     return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.UNAUTHORIZED);
