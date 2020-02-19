@@ -15,7 +15,7 @@ public class UserTest {
 
     @Test
     public void checkUserDetailIsnullIfDataGiven() {
-        User user = new User("1234", "Mugil");
+        User user = new User("1234", "Mugil", "abc@gmail.com");
         assertEquals(user.getUserId(), "1234");
         assertEquals(user.getName(), "Mugil");
     }

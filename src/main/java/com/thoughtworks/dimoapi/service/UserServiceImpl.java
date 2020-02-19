@@ -6,6 +6,9 @@ import com.thoughtworks.dimoapi.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -13,10 +16,14 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         String encryptedPassword = PasswordUtils.encrypt(user.getPassword());
         user.setPassword(encryptedPassword);
+        if (user.getPreferences().size() == 0) {
+            user.setPreferences(new ArrayList<>(Arrays.asList("en", "28")));
+        }
         userRepository.save(user);
+        return user;
     }
 
     @Override
