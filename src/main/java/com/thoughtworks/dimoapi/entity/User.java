@@ -6,10 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Document(collection = "users")
 @NoArgsConstructor
@@ -19,18 +16,14 @@ public class User {
     @Id
     private String userId;
     private String name;
-  
-    @Indexed(unique=true)
+
+    @Indexed(unique = true)
     private String email;
     private String password;
-
     private List preferences;
 
-    public User(String id, String name) {
-        this.userId = id;
+    public User(String userId, String name) {
+        this.userId = userId;
         this.name = name;
     }
-
-    private Date creationDate = new Date();
-    private Map<String, String> userSettings = new HashMap<>();
 }

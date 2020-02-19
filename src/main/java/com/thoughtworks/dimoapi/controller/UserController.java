@@ -24,12 +24,12 @@ public class UserController {
     @Autowired
     DashboardService dashboardService;
 
-    @GetMapping(value="/hello")
-    public  String sayHello(){
-        return  "hello";
+    @GetMapping(value = "/hello")
+    public String sayHello() {
+        return "hello";
     }
 
-    @PostMapping(value = "/signUp")
+    @PostMapping(value = "/signup")
     public ResponseEntity createUser(@RequestBody User user) {
         try {
             if (userService.findByEmail(user.getEmail()) == null) {
@@ -46,7 +46,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public  ResponseEntity doLogin(@RequestBody LoginRequest credential){
+    public ResponseEntity doLogin(@RequestBody LoginRequest credential) {
+
         try {
             User user = userService.findByEmail(credential.getEmail());
             if (user != null) {
@@ -66,8 +67,8 @@ public class UserController {
 
     }
 
-    @GetMapping(path = "/movie-types", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, List> allMovieTypes() {
+    @GetMapping(path = "/preferences", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, List> allPreferences() {
         return dashboardService.getMovieTypes();
     }
 }
