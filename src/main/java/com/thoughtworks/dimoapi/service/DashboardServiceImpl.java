@@ -2,6 +2,8 @@ package com.thoughtworks.dimoapi.service;
 
 import com.thoughtworks.dimoapi.entity.Movie;
 import com.thoughtworks.dimoapi.entity.Preference;
+import com.thoughtworks.dimoapi.entity.User;
+import com.thoughtworks.dimoapi.exception.InvalidUserException;
 import com.thoughtworks.dimoapi.repository.MovieRepository;
 import com.thoughtworks.dimoapi.repository.PreferenceRepository;
 import com.thoughtworks.dimoapi.repository.UserRepository;
@@ -41,12 +43,17 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public Map<String, List<Movie>> getMoviesByPreferences(String userEmail) {
+    public Map<String, List<Movie>> getMoviesByPreferences(String userEmail) throws InvalidUserException {
         Map<String, List<Movie>> movieListWithType = new HashMap<>();
 
-        List<String> userPreferences = userRepository.findByEmail(userEmail).getPreferences();
+        List<String> userPreferences;
+        User user = userRepository.findByEmail(userEmail);
 
+        if (user == null){
+            throw new InvalidUserException("User Email is Invalid");
+        }
 
+        userPreferences = user.getPreferences();
         for (String code : userPreferences) {
 
             Preference preference = preferenceRepository.findByCode(code);
@@ -69,7 +76,7 @@ public class DashboardServiceImpl implements DashboardService {
         Query query = new Query();
         query.with(Sort.by(Sort.Direction.DESC, "popularity")).limit(4);
         List<Movie> movieList = mongoTemplate.find(query, Movie.class);
-        movieListWithType.put("trending", movieList);
+        movieListWithType.put("Trending", movieList);
 
         return movieListWithType;
     }
