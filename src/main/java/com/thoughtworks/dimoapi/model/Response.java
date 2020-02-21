@@ -6,6 +6,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Response {
-    private boolean statusCode;
-    private String message;
+
+    private String userId;
+    private String name;
+    private String email;
+
+
 }
