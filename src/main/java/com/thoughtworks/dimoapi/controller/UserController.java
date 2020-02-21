@@ -1,5 +1,6 @@
 package com.thoughtworks.dimoapi.controller;
 
+import com.thoughtworks.dimoapi.entity.Preference;
 import com.thoughtworks.dimoapi.entity.User;
 import com.thoughtworks.dimoapi.model.LoginRequest;
 import com.thoughtworks.dimoapi.model.Response;
@@ -69,7 +70,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/preferences", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, List> allPreferences() {
-        return dashboardService.getMovieTypes();
+    public Map<String, List<Preference>> allPreferences() {
+        return dashboardService.getPreferences();
     }
 }
