@@ -27,7 +27,6 @@ public class DashboardController {
             return new ResponseEntity("Please Enter a valid email", HttpStatus.BAD_REQUEST);
         }
 
-
         try {
             return new ResponseEntity(dashboardService.getMoviesByPreferences(email), HttpStatus.OK);
         } catch (InvalidUserException e) {
