@@ -17,7 +17,7 @@ public class MovieController {
     @Autowired
     MovieService moviesService;
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Object getMovieById(@RequestParam(value = "id") String movieId) {
         if (movieId == null || movieId.equals("")) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
