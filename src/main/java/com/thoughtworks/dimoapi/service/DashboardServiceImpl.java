@@ -65,6 +65,4 @@ public class DashboardServiceImpl implements DashboardService {
         }
         return movieListWithType;
     }
-
-
 }
