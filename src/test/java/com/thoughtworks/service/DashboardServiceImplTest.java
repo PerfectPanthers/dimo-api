@@ -46,18 +46,4 @@ public class DashboardServiceImplTest {
         Assert.assertTrue(preferenceMap.containsKey("genres"));
         Assert.assertTrue(preferenceMap.containsKey("spoken_languages"));
     }
-
-//    @Test
-//    public void testGetMoviesByPreferences() {
-//        List<String> preferences = new ArrayList<>();
-//        preferences.add("en");
-//        User user = new User("test@gmail.com","Test");
-//        user.setPreferences(preferences);
-//        Mockito.when(userRepository.findByEmail("test@gmail.com")).thenReturn(user);
-//        Preference preference =  new Preference();
-//        preference.setType("spoken_languages");
-//        Mockito.when(mockPreferenceRepository.findByCode("en")).thenReturn(preference);
-//        Map<String, List<Movie>> moviePreferenceMap = dashboardService.getMoviesByPreferences(user.getEmail());
-//        Assert.assertEquals(1, moviePreferenceMap.size());
-//    }
 }
