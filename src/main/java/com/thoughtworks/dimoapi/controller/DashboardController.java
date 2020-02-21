@@ -2,6 +2,7 @@ package com.thoughtworks.dimoapi.controller;
 
 import com.thoughtworks.dimoapi.entity.Movie;
 import com.thoughtworks.dimoapi.entity.Preference;
+import com.thoughtworks.dimoapi.exception.InvalidUserException;
 import com.thoughtworks.dimoapi.model.Response;
 import com.thoughtworks.dimoapi.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class DashboardController {
         if (email == null || email.isEmpty()){
             return new ResponseEntity("Please Enter a valid email", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(dashboardService.getMoviesByPreferences(email), HttpStatus.OK);
+
+
+        try {
+            return new ResponseEntity(dashboardService.getMoviesByPreferences(email), HttpStatus.OK);
+        } catch (InvalidUserException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
