@@ -8,4 +8,6 @@ import java.util.List;
 public interface PreferenceRepository extends MongoRepository<Preference, String> {
 
     List findByType(String type);
+
+    Preference findByCode(String code);
 }
