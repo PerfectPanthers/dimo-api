@@ -60,14 +60,14 @@ public class DashboardServiceImpl implements DashboardService {
             if ("spoken_languages".equals(preference.getType())) {
                 Query query = new Query();
                 query.addCriteria(Criteria.where("spoken_languages.id").is(code))
-                        .with(Sort.by(Sort.Direction.DESC, "popularity")).limit(4);
+                        .with(Sort.by(Sort.Direction.DESC, "vote_average")).limit(4);
                 List<Movie> movieList = mongoTemplate.find(query, Movie.class);
                 movieListWithType.put(preference.getItemName(), movieList);
 
             } else {
                 Query query = new Query();
                 query.addCriteria(Criteria.where(preference.getType() + ".id").is(Integer.parseInt(code)))
-                        .with(Sort.by(Sort.Direction.DESC, "popularity")).limit(4);
+                        .with(Sort.by(Sort.Direction.DESC, "vote_average")).limit(4);
                 List<Movie> movieList = mongoTemplate.find(query, Movie.class);
                 movieListWithType.put(preference.getItemName(), movieList);
             }
